@@ -1,0 +1,70 @@
+constants:
+  comment:
+    start-index: 0
+    need-for-view-count: 3
+  file:
+    upload-directory: D:/ParkDoheum/2025/2025-04-msa/upload/greengram_feed
+    feed-pic: /feed
+    max-pic-count: 10
+  open-feign:
+    user: GREENGRAM-USER
+    feed-like: GREENGRAM-LIKE
+
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8888/eureka
+    instance:
+      instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: mappers/**/*.xml
+
+server:
+  port: 0
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  application:
+    name: greengram-feed
+  datasource:
+    url: jdbc:log4jdbc:mariadb://localhost/greengram_feed
+    username: root
+    password: green502
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  jackson:
+    default-property-inclusion: non_null
+  jpa:
+    database: mysql
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+      #ddl-auto: create
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 20
+        format_sql: true
+        order_updates: true
+        show_sql: true
+  servlet:
+    multipart:
+      max-file-size: 15MB
+  sql:
+    init:
+      mode: always
+
+
+
+
+
+

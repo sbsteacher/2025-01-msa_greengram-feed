@@ -1,0 +1,26 @@
+constants:
+  file:
+    upload-directory: D:/ParkDoheum/2025/2025-04-msa/upload/greengram_feed
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka
+
+spring:
+  datasource:
+    url: jdbc:log4jdbc:mariadb://localhost/greengram_feed
+    username: root
+    password: green502
+  jpa:
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: never
+
+
+
+
+
+
