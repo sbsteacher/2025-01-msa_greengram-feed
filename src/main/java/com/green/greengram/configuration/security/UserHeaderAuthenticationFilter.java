@@ -2,6 +2,7 @@ package com.green.greengram.configuration.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.green.greengram.configuration.model.SignedUser;
 import com.green.greengram.configuration.model.UserPrincipal;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,19 +23,17 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class UserHeaderAuthenticationFilter extends OncePerRequestFilter {
 
-    private final ObjectMapper objectMapper;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        String signedUserJson = request.getHeader("signedUser");
-        log.info("signedUserJson: {}", signedUserJson);
+        String signedUserId = request.getHeader("signedUser");
+        log.info("signedUserId: {}", signedUserId);
 
-        if (signedUserJson != null) {
-            UserPrincipal userPrincipal = objectMapper.readValue(signedUserJson, UserPrincipal.class);
-            Authentication auth = new UsernamePasswordAuthenticationToken(userPrincipal, null, null);
+        if (signedUserId != null) {
+            SignedUser signedUser = new SignedUser(Long.parseLong(signedUserId));
+            Authentication auth = new UsernamePasswordAuthenticationToken(signedUser, null, null);
             SecurityContextHolder.getContext().setAuthentication(auth);
         }
 

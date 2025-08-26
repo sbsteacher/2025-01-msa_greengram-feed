@@ -1,26 +1,34 @@
 constants:
   file:
-    upload-directory: D:/ParkDoheum/2025/2025-04-msa/upload/greengram_feed
+    upload-directory: /home/download
 
 eureka:
   client:
-    service-url:
-      defaultZone: http://localhost:8888/eureka
+    enabled: false
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
 
 spring:
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: true
+        all-namespaces: false
+    loadbalancer:
+      enabled: true
+
   datasource:
-    url: jdbc:log4jdbc:mariadb://localhost/greengram_feed
-    username: root
-    password: green502
+    url: jdbc:log4jdbc:mariadb://feed-db.greengram-db.svc.cluster.local/greengram_feed
+
   jpa:
     hibernate:
       ddl-auto: none
-  sql:
-    init:
-      mode: never
-
-
-
-
 
 

@@ -4,6 +4,7 @@ import com.green.greengram.application.feedcomment.model.FeedCommentGetReq;
 import com.green.greengram.application.feedcomment.model.FeedCommentGetRes;
 import com.green.greengram.application.feedcomment.model.FeedCommentPostReq;
 import com.green.greengram.configuration.model.ResultResponse;
+import com.green.greengram.configuration.model.SignedUser;
 import com.green.greengram.configuration.model.UserPrincipal;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +20,11 @@ public class FeedCommentController {
     private final FeedCommentService feedCommentService;
 
     @PostMapping
-    public ResultResponse<?> postFeedComment(@AuthenticationPrincipal UserPrincipal userPrincipal
+    public ResultResponse<?> postFeedComment(@AuthenticationPrincipal SignedUser signedUser
                                            , @Valid @RequestBody FeedCommentPostReq req) {
-        log.info("signedUserId: {}", userPrincipal.getSignedUserId());
+        log.info("signedUserId: {}", signedUser.signedUserId);
         log.info("req: {}", req);
-        long feedCommentId = feedCommentService.postFeedComment(userPrincipal.getSignedUserId(), req);
+        long feedCommentId = feedCommentService.postFeedComment(signedUser.signedUserId, req);
         return new ResultResponse<>("댓글 등록 완료", feedCommentId);
     }
 
@@ -36,10 +37,10 @@ public class FeedCommentController {
     }
 
     @DeleteMapping
-    public ResultResponse<?> deleteFeedComment(@AuthenticationPrincipal UserPrincipal userPrincipal
+    public ResultResponse<?> deleteFeedComment(@AuthenticationPrincipal SignedUser signedUser
                                              , @RequestParam("feed_comment_id") Long feedCommentId) {
 
-        feedCommentService.deleteFeedComment(userPrincipal.getSignedUserId(), feedCommentId);
+        feedCommentService.deleteFeedComment(signedUser.signedUserId, feedCommentId);
         return new ResultResponse<>("댓글을 삭제하였습니다.", null);
     }
 }

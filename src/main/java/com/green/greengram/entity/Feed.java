@@ -14,8 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class Feed extends UpdatedAt {
-    @Id
-    @Tsid
+    @Id @Tsid
     private Long feedId;
 
     @Embedded

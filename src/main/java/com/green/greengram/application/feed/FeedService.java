@@ -79,6 +79,7 @@ public class FeedService {
             feedIdList.add(feedGetRes.getFeedId()); //feedId수집
 
             feedGetRes.setPics(feedMapper.findAllPicByFeedId(feedGetRes.getFeedId()));
+
             //startIdx:0, size: 4
             FeedCommentGetReq req = new FeedCommentGetReq(feedGetRes.getFeedId(), constComment.startIndex, constComment.needForViewCount);
             List<FeedCommentItem> commentList = feedCommentMapper.findAllByFeedIdLimitedTo(req);
@@ -94,6 +95,10 @@ public class FeedService {
                 writerUserIdList.add(feedCommentItem.getWriterUserId());
             }
         }
+
+        //feed, comment 작성자 user_id값 수집 완료!!!
+
+        //feed_id값 수집 완료!!
 
         ResultResponse<Map<Long, UserGetItem>> userRes = userClient.getUserList(writerUserIdList);
         log.info("userList: {}", userRes.getResult());
