@@ -5,7 +5,6 @@ import com.green.greengram.application.feedcomment.model.FeedCommentGetRes;
 import com.green.greengram.application.feedcomment.model.FeedCommentPostReq;
 import com.green.greengram.configuration.model.ResultResponse;
 import com.green.greengram.configuration.model.SignedUser;
-import com.green.greengram.configuration.model.UserPrincipal;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

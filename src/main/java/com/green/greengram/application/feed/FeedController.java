@@ -4,7 +4,7 @@ import com.green.greengram.application.feed.model.*;
 import com.green.greengram.configuration.constants.ConstFile;
 import com.green.greengram.configuration.model.ResultResponse;
 import com.green.greengram.configuration.model.SignedUser;
-import com.green.greengram.configuration.model.UserPrincipal;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
@@ -63,6 +63,22 @@ public class FeedController {
         log.info("signedUserId: {}", signedUser.signedUserId);
         log.info("feedId: {}", feedId);
         feedService.deleteFeed(signedUser.signedUserId, feedId);
+        return new ResultResponse<>("피드가 삭제되었습니다.", null);
+    }
+
+
+    //Spring Security를 사용하지 않았다면 SCG에서 전달해주는 signedUserId값은 아래처럼 받아서 사용해야 한다.
+    @DeleteMapping("/delete")
+    public ResultResponse<?> deleteFeed2(HttpServletRequest request
+            , @RequestParam("feed_id") @Valid @Positive Long feedId) {
+
+        String signedUserId = request.getHeader("signedUser");
+        Long singUserId = Long.parseLong(signedUserId);
+
+
+        log.info("signedUserId: {}", singUserId);
+        log.info("feedId: {}", feedId);
+        feedService.deleteFeed(singUserId, feedId);
         return new ResultResponse<>("피드가 삭제되었습니다.", null);
     }
 }

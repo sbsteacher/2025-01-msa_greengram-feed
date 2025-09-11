@@ -1,9 +1,6 @@
 package com.green.greengram.configuration.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.green.greengram.configuration.model.SignedUser;
-import com.green.greengram.configuration.model.UserPrincipal;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

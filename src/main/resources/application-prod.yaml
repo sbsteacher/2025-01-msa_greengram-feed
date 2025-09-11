@@ -10,25 +10,27 @@ server:
   port: 8080
 
 management:
+  endpoint:
+    health:
+      show-details: always
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,prometheus
+        include: health
+
 
 spring:
   cloud:
     kubernetes:
       discovery:
         enabled: true
-        all-namespaces: false
-    loadbalancer:
-      enabled: true
-
+      reload:
+        enabled: true
+        strategy: refresh
   datasource:
-    url: jdbc:log4jdbc:mariadb://feed-db.greengram-db.svc.cluster.local/greengram_feed
-
+    url: jdbc:log4jdbc:mariadb://192.168.0.74/greengram_feed
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 
 
