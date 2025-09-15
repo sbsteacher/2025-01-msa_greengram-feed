@@ -72,7 +72,7 @@ public class FeedService {
     public List<FeedGetRes> getFeedList(FeedGetDto dto) {
         List<FeedGetRes> list = feedMapper.findAllLimitedTo(dto);
         if(list.size() == 0) {
-            return new ArrayList<>();
+            return list;
         }
         Set<Long> writerUserIdList = list.stream().map(item -> item.getWriterUserId()).collect(Collectors.toSet()); //각 피드당 writer_user_id값 가져오기
 
