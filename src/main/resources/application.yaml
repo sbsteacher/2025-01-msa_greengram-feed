@@ -7,8 +7,8 @@ constants:
     feed-pic: /feed
     max-pic-count: 10
   open-feign:
-    user: GREENGRAM-USER
-    feed-like: GREENGRAM-LIKE
+    user: greengram-user
+    feed-like: greengram-like
 
 
 eureka:
